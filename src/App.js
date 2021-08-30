@@ -3,51 +3,17 @@ import "./App.css";
 import Form from "./Form/Form";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import axios from "axios";
-import { useState, useEffect } from 'react';
 
 
 const App = () => {
 
-  const fetchAddress = async () => {
-    const endereco = await axios.get(`https://viacep.com.br/ws/${form.cep}/json/`);
-    setForm({ ...form, logradouro: endereco.data.logradouro });
-  };
-
   const createCandidate = async (candidate) => {
-    try {
-      const user = await axios.post('http://localhost:3300/register', form);
-      if (user.status === 200) {
-        alert('Cadastro realizado com sucesso');
-      }
-
-    } catch (error) {
-      setCpfError(true);
+    const user = await axios.post('http://localhost:3300', Form);
+    if (user.status === 200) {
+        alert('Usuário criado com sucesso!');
     }
-  };
-
-  const [form, setForm] = useState({
-    nome: "",
-    cargo: "",
-    dataNascimento: "",
-    sexo: "",
-    estadoCivil: "",
-    cep: "",
-    endereco: "",
-    numero: "",
-    cidade: "",
-    bairro: "",
-    fone1: "",
-    fone2: "",
-    celular: "",
-    contato: "",
-    email: "",
-    identidade: "",
-    cpf: "",
-    veiculo: "",
-    habilitacao: "",
-  });
-
-  const [cpfError, setCpfError] = useState(false);
+    alert('Algo deu errado. Por favor, verifique os dados tente novamente.');
+};
 
    return (
     <div>
@@ -64,7 +30,6 @@ const App = () => {
         </Container>
       </Navbar>
      <br />
-     
      <Form />
       
     </div>
